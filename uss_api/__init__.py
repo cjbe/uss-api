@@ -22,7 +22,19 @@ def extract_dc_value(uss_config):
         "totalFundValue": totalFundValue
     }
 
+def extract_db_value(uss_config):
+    annualPensionValue = float(uss_config["annualPensionValue"][2:-2].replace(',',''))
+    lumpSumValue = float(uss_config["lumpSumValue"][2:-2].replace(',',''))
 
+    return {
+        "annualPensionValue": annualPensionValue,
+        "lumpSumValue": lumpSumValue
+    }
+
+def extract_all_values(uss_config):
+    dc = extract_dc_value(uss_config)
+    db = extract_db_value(uss_config)
+    return dict(db, **dc)
 
 
 def _get_login_data(session):
